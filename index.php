@@ -11,7 +11,7 @@
 <body>
     <p>既然都攤在陽光下了，與其被少數人利用，不如讓大家都能使用。</p>
 
-    <span>公會 ID</span>
+    <span>公會短標籤（三個字元的那個，不分大小寫）</span>
     <input type="text" id="c">
     <br>
     <span>歷史記錄筆數（32~1500）</span>
@@ -22,13 +22,14 @@
     <br>
     <hr><br>
 
-    <div>結果</div>
+    <div>結果 (共 <span id="number">x</span> 筆)</div>
     <div id="result"></div>
 
     <script>
         (() => {
             const result = document.querySelector("#result");
             const button = document.querySelector("input[type='button']");
+            const number = document.querySelector("#number");
             const c = document.querySelector("#c");
             const n = document.querySelector("#n");
             button.onclick = async _ => {
@@ -44,16 +45,24 @@
                 );
 
                 if (response.success === true) {
-                    let html = "<pre>";
+                    result.innerHTML = "";
+                    let ta = document.createElement("textarea");
+                    ta.style.cssText = "width: 90%; height: 600px";
+                    ta.readOnly = true;
+
+                    let val = ""
                     response.data.reverse();
 
                     response.data.forEach(e => {
-                        html += translate(e) + "<br>";
+                        val += translate(e) + "\n";
                     });
 
-                    html += "</pre>";
+                    ta.value = val;
 
-                    result.innerHTML = html;
+                    result.insertAdjacentElement("afterbegin", ta);
+                    number.innerHTML = response.data.length;
+                } else {
+                    result.innerHTML = `<p style="color: red">Error: ${result.message}</p>`;
                 }
             };
 
