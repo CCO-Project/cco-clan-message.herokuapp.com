@@ -77,15 +77,6 @@
 
             function translate(e) {
                 let m = e.message;
-                
-                let tags = m.match(/\$!\{player.+?\}/);
-                if (tags !== null) {
-                    tags.forEach(tag => {
-                        let t = decodeURIComponent(tag);
-                        t = JSON.parse(t.replace("$!{player:", "").replace(/\}$/, ""));
-                        m = m.replace(tag, `【${t.n}<${t.t}>】`);
-                    });
-                }
 
                 let tags2 = m.match(/\$!\{playerName:.+?\}/g);
                 if (tags2 !== null) {
@@ -93,6 +84,15 @@
                         let t = decodeURIComponent(tag);
                         t = t.replace(/\$\!\{playerName:(.+?)\}/g, "$1");
                         m = m.replace(tag, `【${t}】`);
+                    });
+                }
+
+                let tags = m.match(/\$!\{player.+?\}/);
+                if (tags !== null) {
+                    tags.forEach(tag => {
+                        let t = decodeURIComponent(tag);
+                        t = JSON.parse(t.replace("$!{player:", "").replace(/\}$/, ""));
+                        m = m.replace(tag, `【${t.n}<${t.t}>】`);
                     });
                 }
 
