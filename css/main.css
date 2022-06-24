@@ -1,0 +1,119 @@
+#container {
+    width: 800px;
+    margin: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 800px;
+}
+
+th,
+td {
+    border: 1px solid #c0e4dc;
+    text-align: center;
+}
+
+.chat-list {
+    width: 800px;
+    height: 600px;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.chat-list::-webkit-scrollbar {
+    width: 1em;
+}
+
+.chat-list::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px #c0e4dc;
+}
+
+.chat-list::-webkit-scrollbar-thumb {
+    background-color: #c0e4dc;
+    outline: 1px solid #c0e4dc;
+}
+
+.chat {
+    width: 600px;
+    margin: 1rem 0;
+}
+
+.chat-top {
+    clip-path: polygon(95% 0, 100% 50%, 100% 100%, 0 100%, 0 0);
+    background-color: #c0e4dc;
+    height: 20px;
+    color: #1e1e1e;
+    line-height: 20px;
+    text-align: left;
+    width: 260px;
+    padding: 4px 20px 4px 8px;
+    font-weight: bold;
+}
+
+.chat-body {
+    height: fit-content;
+    padding: 12px 8px;
+    width: calc(100% - 16px);
+    border: 1px solid #c0e4dc;
+}
+
+.chat-footer {
+    width: 100%;
+    padding: 4px 0;
+    font-size: 0.6rem;
+}
+
+.span {
+    display: inline-flex;
+}
+
+.tag {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 2px 5px;
+    color: #c0e4dc;
+    background-color: #3d3d3d;
+    opacity: 0.9;
+    cursor: pointer;
+}
+
+.tag:hover {
+    opacity: 1;
+}
+
+.right {
+    float: right;
+}
+
+.tag[data-tier='donation1'] {
+    color: rgb(192, 228, 220);
+}
+
+.tag[data-tier='donation2'] {
+    color: rgb(79, 189, 116);
+}
+
+.tag[data-tier='donation3'] {
+    color: #ccc541;
+}
+
+.tag[data-tier='donation4'] {
+    color: #8A2BE2
+}
+
+.tag[data-tier='donation5'] {
+    color: #d07f3c;
+}
+
+.tag[data-tier='donation6'] {
+    color: rgb(34, 197, 238);
+}
+
+.tag[data-tier='donation7'] {
+    color: rgb(233, 87, 243);
+}
+
+.tag[data-tier='MODERATOR'] {
+    color: #FF69B4;
+}
