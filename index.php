@@ -62,7 +62,7 @@
                     result.insertAdjacentElement("afterbegin", ta);
                     number.innerHTML = response.data.length;
                 } else {
-                    result.innerHTML = `<p style="color: red">Error: ${result.message}</p>`;
+                    result.innerHTML = `<p style="color: red">Error: ${response.message}</p>`;
                 }
             };
 
