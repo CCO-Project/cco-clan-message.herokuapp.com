@@ -13,25 +13,22 @@
 <body style="background-color: #1e1e1e; color: #c0e4dc; align-items: center">
     <div id="container">
         <h2>既然都攤在陽光下了，與其被少數人利用，不如讓大家都能使用。</h2>
-        <div class="span right" style="opacity: 0.5; font-size: smaller;">最後更新於 2022.06.26 10:50:19 - 修正標記錯誤、微調介面</div>
+        <div class="span right" style="opacity: 0.5; font-size: smaller;">最後更新於 2022.06.26 12:50:10 - 微調介面、調整搜尋結果（直接搜全部）</div>
 
         <table>
             <colgroup>
-                <col style="width: calc(200% / 4)">
-                <col style="width: calc(100% / 4)">
-                <col style="width: calc(100% / 4)">
+                <col style="width: calc(200% / 3)">
+                <col style="width: calc(100% / 3)">
             </colgroup>
             <thead>
                 <tr>
                     <th>公會標籤（三個字元的那個，不分大小寫）</th>
-                    <th>歷史記錄筆數 (32~1500)</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td><input type="text" id="c"></td>
-                    <td><input type="number" id="n" value="1500" min="32" max="1500"></td>
                     <td><input type="button" value="搜尋"></td>
                 </tr>
             </tbody>
@@ -39,7 +36,10 @@
 
         <br>
 
-        <div>結果 (共 <span id="number">x</span> 筆)</div>
+        <div>
+            結果 (共 <span id="number">x</span> 筆)
+            <span id="status"></span>
+        </div>
 
         <div class="chat-list" id="result">
 
@@ -69,19 +69,18 @@
             const button = document.querySelector("input[type='button']");
             const number = document.querySelector("#number");
             const c = document.querySelector("#c");
-            const n = document.querySelector("#n");
+            let statusId;
 
             button.onclick = fetchData;
             c.onkeydown = e => e.keyCode == 13 ? fetchData() : true;
-            n.onkeydown = e => e.keyCode == 13 ? fetchData() : true;
             changeListHeight();
             window.addEventListener("resize", changeListHeight);
 
             async function fetchData() {
                 const fd = new FormData();
                 fd.append("c", c.value);
-                fd.append("n", n.value);
-
+                
+                showStatus(1);
                 const response = await fetch("./api/cm.php", {
                     method: "POST",
                     body: fd
@@ -102,8 +101,11 @@
                     });
 
                     number.innerHTML = response.data.length;
+                    showStatus(0);
                 } else {
+                    number.innerHTML = "x";
                     result.innerHTML = `<p style="color: red">Error: ${response.message}</p>`;
+                    showStatus(2);
                 }
             }
 
@@ -218,6 +220,36 @@
                 const calcHeightPx = window.innerHeight - result.getClientRects()[0].y - 10;
                 result.style.minHeight = `${calcHeightPx}px`;
                 result.style.height = `${calcHeightPx}px`;
+            }
+
+            function showStatus(type = 0) {
+                const status = document.querySelector("#status");
+                const COLOR_STATUS = {
+                    success: "#9bfc9b",
+                    processing: "#fffd77",
+                    error: "#f00"
+                };
+
+                if (type == 0) {
+                    status.innerText = "已完成";
+                    status.style.color = COLOR_STATUS.success;
+                    clearInterval(statusId);
+                } else if (type == 1) {
+                    let t = 0;
+                    let timer = document.createElement("span");
+                    status.innerText = "搜尋中... ";
+                    status.style.color = COLOR_STATUS.processing;
+                    status.insertAdjacentElement("beforeend", timer);
+
+                    statusId = setInterval(() => {
+                        t += 0.033;
+                        timer.innerText = `${t.toFixed(2)}s`;
+                    }, 33);
+                } else if (type == 2) {
+                    status.innerText = "錯誤";
+                    status.style.color = COLOR_STATUS.error;
+                    clearInterval(statusId);
+                }
             }
         })();
     </script>
