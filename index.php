@@ -13,7 +13,7 @@
 <body style="background-color: #1e1e1e; color: #c0e4dc; align-items: center">
     <div id="container">
         <h2>既然都攤在陽光下了，與其被少數人利用，不如讓大家都能使用。</h2>
-        <div class="span right">最後更新於 2022.06.24 22:42:18</div>
+        <div class="span right" style="opacity: 0.5; font-size: smaller;">最後更新於 2022.06.26 10:50:19 - 修正標記錯誤、微調介面</div>
 
         <table>
             <colgroup>
@@ -38,7 +38,6 @@
         </table>
 
         <br>
-        <hr><br>
 
         <div>結果 (共 <span id="number">x</span> 筆)</div>
 
@@ -74,6 +73,9 @@
 
             button.onclick = fetchData;
             c.onkeydown = e => e.keyCode == 13 ? fetchData() : true;
+            n.onkeydown = e => e.keyCode == 13 ? fetchData() : true;
+            changeListHeight();
+            window.addEventListener("resize", changeListHeight);
 
             async function fetchData() {
                 const fd = new FormData();
@@ -124,6 +126,7 @@
             }
 
             function translate(e) {
+                const resultTags = [];
                 let m = e.message;
 
                 let tags2 = m.match(/\$!\{playerName:.+?\}/g);
@@ -131,11 +134,11 @@
                     tags2.forEach(tag => {
                         let t = decodeURIComponent(tag);
                         t = t.replace(/\$\!\{playerName:(.+?)\}/g, "$1");
-                        m = m.replace(tag, `【${t}】`);
+                        m = m.replace(tag, `(((${resultTags.length})))`);
+
+                        resultTags[resultTags.length] = `<div class="tag" data-tier="none">${t}</div>`;
                     });
                 }
-
-                const resultTags = [];
                 let tags = m.match(/\$!\{player.+?\}/);
                 if (tags !== null) {
                     tags.forEach(tag => {
@@ -211,6 +214,11 @@
                     .replace(/'/g, "&#039;");
             }
 
+            function changeListHeight() {
+                const calcHeightPx = window.innerHeight - result.getClientRects()[0].y - 10;
+                result.style.minHeight = `${calcHeightPx}px`;
+                result.style.height = `${calcHeightPx}px`;
+            }
         })();
     </script>
 </body>
