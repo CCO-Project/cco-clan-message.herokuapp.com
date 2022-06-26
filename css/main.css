@@ -9,13 +9,25 @@ body {
 
 table {
     border-collapse: collapse;
-    width: 800px;
+    width: 98%;
+    margin: auto;
 }
 
 th,
 td {
     border: 1px solid #c0e4dc;
     text-align: center;
+    padding: 1px 4px;
+}
+
+.header {
+    font-size: 1.7rem;
+    font-weight: bolder;
+}
+
+.update-message {
+    opacity: 0.65;
+    font-size: 0.9rem;
 }
 
 .chat-list {
@@ -121,4 +133,28 @@ td {
 
 .tag[data-tier='MODERATOR'] {
     color: #FF69B4;
+}
+
+@media only screen and (max-width: 800px) {
+    #container {
+        width: 100%;
+    }
+
+    .chat-list {
+        width: 100%;
+    }
+
+    .chat {
+        width: 95%;
+        margin: 1rem 0;
+    }
+
+    .header {
+        font-size: 1.2rem;
+        font-weight: bolder;
+    }
+
+    .update-message {
+        font-size: 0.6rem;
+    }
 }

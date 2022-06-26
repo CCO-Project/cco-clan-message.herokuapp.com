@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW" style="font-size: 18px;">
+<html lang="zh-TW" style="font-size: 16px;">
 
 <head>
     <meta charset="UTF-8">
@@ -12,8 +12,8 @@
 
 <body style="background-color: #1e1e1e; color: #c0e4dc; align-items: center">
     <div id="container">
-        <h2>既然都攤在陽光下了，與其被少數人利用，不如讓大家都能使用。</h2>
-        <div class="span right" style="opacity: 0.5; font-size: smaller;">最後更新於 2022.06.26 12:50:10 - 微調介面、調整搜尋結果（直接搜全部）</div>
+        <div class="header">既然都攤在陽光下了，與其被少數人利用，不如讓大家都能使用。</div>
+        <div class="span right update-message">最後更新於 2022.06.26 13:17:10 - 微調手機介面、調整搜尋結果（直接搜全部）</div>
 
         <table>
             <colgroup>
@@ -22,14 +22,13 @@
             </colgroup>
             <thead>
                 <tr>
-                    <th>公會標籤（三個字元的那個，不分大小寫）</th>
-                    <th></th>
+                    <th colspan="2">公會標籤（三個字元的那個，不分大小寫）</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="text" id="c"></td>
-                    <td><input type="button" value="搜尋"></td>
+                    <td><input type="text" id="c" style="font-size: 1.5rem; width: calc(100% - 8px);"></td>
+                    <td><input type="button" value="搜尋" style="font-size: 1.5rem;"></td>
                 </tr>
             </tbody>
         </table>
